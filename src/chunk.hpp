@@ -1,9 +1,6 @@
 #pragma once
 #include <raylib.h>
 #include <raymath.h>
-#include <vector>
-
-using std::vector;
 
 #define CHUNK_SIZE 8
 

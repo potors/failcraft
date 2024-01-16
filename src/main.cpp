@@ -1,7 +1,9 @@
+#include <algorithm>
 #include <raylib.h>
 #include <rcamera.h>
 #include <raymath.h>
 #include "draw.h"
+#include <vector>
 
 //#include "entity.hpp"
 #include "player.hpp"
@@ -15,7 +17,8 @@ int main(void) {
     SetRandomSeed(0);
 
     Player player;
-    Chunk chunk;
+    std::vector<std::vector<Chunk>> chunks(8);
+    std::generate(chunks.begin(), chunks.end(), []() { return std::vector<Chunk>(8); });
 
     InitWindow(WIDTH, HEIGHT, TITLE);
     DisableCursor();
@@ -24,7 +27,10 @@ int main(void) {
     while (!WindowShouldClose()) {
         player.move();
         player.look();
-        chunk.process();
+        
+//       for (Chunk& chunk : chunks) {
+//           chunk.process();
+//       }
 
         BeginDrawing();
             ClearBackground(BLACK);
@@ -33,7 +39,17 @@ int main(void) {
                 DrawCubeWiresO(player.Position(), player.Size(), player.Color());
                 player.draw();
 
-                chunk.draw({0});
+                for (int i = 0; i < chunks.size(); i++) {
+                    std::vector<Chunk>& row = chunks[i];
+
+                    for (int j = 0; j < row.size(); j++) {
+                        Chunk& chunk = row[j];
+
+                        Vector3 origin = { (float) i * CHUNK_SIZE, 0, (float) j * CHUNK_SIZE };
+                    
+                        chunk.draw(origin);
+                    }
+                }
             EndMode3D();
 
             // debug
