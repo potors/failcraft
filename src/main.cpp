@@ -8,6 +8,7 @@
 //#include "entity.hpp"
 #include "player.hpp"
 #include "chunk.hpp"
+#include "water.hpp"
 
 #define WIDTH  800
 #define HEIGHT 600
@@ -19,6 +20,9 @@ int main(void) {
     Player player;
     std::vector<std::vector<Chunk>> chunks(4);
     std::generate(chunks.begin(), chunks.end(), []() { return std::vector<Chunk>(4); });
+
+    bool raining = true;
+    Drop drops[4 * 4][CHUNK_SIZE * CHUNK_SIZE];
 
     InitWindow(WIDTH, HEIGHT, TITLE);
     DisableCursor();
@@ -48,8 +52,21 @@ int main(void) {
                         Chunk& chunk = row[j];
 
                         Vector3 origin = { (float) i * CHUNK_SIZE, 0, (float) j * CHUNK_SIZE };
-                    
+
                         chunk.draw(origin);
+
+                        if (!raining) continue;
+                        for (int d = 0; d < CHUNK_SIZE; d++) {
+                            Drop& drop = drops[i + j][d];
+
+                            bool dropped = drop.fall([](float y) { return y < 0; });
+                            if (dropped) {
+                                Vector2 from = { origin.x, origin.z };
+                                drop.regen(from, Vector2AddValue(from, CHUNK_SIZE));
+                            }
+
+                            drop.draw();
+                        }
                     }
                 }
             EndMode3D();
