@@ -17,8 +17,8 @@ int main(void) {
     SetRandomSeed(0);
 
     Player player;
-    std::vector<std::vector<Chunk>> chunks(8);
-    std::generate(chunks.begin(), chunks.end(), []() { return std::vector<Chunk>(8); });
+    std::vector<std::vector<Chunk>> chunks(4);
+    std::generate(chunks.begin(), chunks.end(), []() { return std::vector<Chunk>(4); });
 
     InitWindow(WIDTH, HEIGHT, TITLE);
     DisableCursor();
@@ -28,9 +28,11 @@ int main(void) {
         player.move();
         player.look();
         
-//       for (Chunk& chunk : chunks) {
-//           chunk.process();
-//       }
+//        for (std::vector<Chunk>& row : chunks) {
+//            for (Chunk& chunk : row) {
+//                chunk.process();
+//            }
+//        }
 
         BeginDrawing();
             ClearBackground(BLACK);

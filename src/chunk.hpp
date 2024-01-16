@@ -1,6 +1,7 @@
 #pragma once
 #include <raylib.h>
 #include <raymath.h>
+#include "player.hpp"
 
 #define CHUNK_SIZE 8
 
