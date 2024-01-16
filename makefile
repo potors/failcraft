@@ -2,7 +2,7 @@
 
 build: clean
 	@echo -e "Compiling"
-	clang++ -lraylib src/*.cpp
+	clang++ -lraylib src/*.c*
 
 run: build
 	@echo -e "Running"

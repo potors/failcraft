@@ -2,10 +2,11 @@
 #include <raylib.h>
 #include <raymath.h>
 #include <rcamera.h>
+#include "draw.h"
 
 Player::Player()
 : Player::Entity({ 0, 2, 0 }, { 1, 2, 1 }) {
-    color = { 255, 255, 0, 128 };
+    color = { 0, 255, 255, 128 };
 
     speed = 4;
     sensitivity = 0.003f;
@@ -25,10 +26,6 @@ Player::Player()
 Player::~Player() {}
 
 void Player::draw() {
-    Vector3 origin = position;
-    origin.y += size.y - 1;
-
-    DrawCubeWiresV(origin, size, color);
 }
 
 void Player::move() {
@@ -56,7 +53,10 @@ void Player::move() {
     CameraMoveUp(&camera, move.y);
     CameraMoveRight(&camera, move.z, true);
 
-    position = camera.position;
+    /////position = Vector3Subtract(camera.position, size);
+    position.x = camera.position.x - size.x / 2;
+    position.y = camera.position.y - size.y + 0.5f;
+    position.z = camera.position.z - size.z / 2;
 }
 
 void Player::look() {
