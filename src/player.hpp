@@ -17,6 +17,7 @@ class Player : public Entity {
         ~Player();
 
         void draw() override;
+        void process() override;
 
         void move();
         void look();

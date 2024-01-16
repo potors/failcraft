@@ -16,9 +16,25 @@ class Drop : public Entity {
         ~Drop();
 
         void draw() override;
+        void process() override;
 
         bool fall(std::function<bool (const float)> dropped);
         void regen(Vector2 from, Vector2 to);
 };
 
+class Lightning : public Entity {
+    private:
+        float duration;
 
+    public:
+        Lightning();
+        Lightning(Vector3 at);
+        Lightning(Vector2 from, Vector2 to);
+
+        ~Lightning();
+
+        void draw() override;
+        void process() override;
+
+        const float& Duration() const;
+};

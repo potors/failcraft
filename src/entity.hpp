@@ -14,6 +14,7 @@ class Entity {
         virtual ~Entity();
 
         virtual void draw() = 0;
+        virtual void process() = 0;
 
         const Color&   Color()    const;
         const Vector3& Position() const;

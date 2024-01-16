@@ -25,8 +25,8 @@ Player::Player()
 
 Player::~Player() {}
 
-void Player::draw() {
-}
+void Player::draw() {}
+void Player::process() {}
 
 void Player::move() {
     float delta = GetFrameTime();
